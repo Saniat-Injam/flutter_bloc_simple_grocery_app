@@ -10,7 +10,7 @@ final class LoadingState extends HomeState {}
 final class SuccessState extends HomeState {}
 final class ErrorState extends HomeState {} 
 
-final class NavigatingToProductWishListScreen extends HomeActionState {}
-final class NavigatingToProductCartScreen extends HomeActionState {}
+final class NavigatingToWishlistScreenActionState extends HomeActionState {}
+final class NavigatingToCartScreenActionState extends HomeActionState {}
 
 

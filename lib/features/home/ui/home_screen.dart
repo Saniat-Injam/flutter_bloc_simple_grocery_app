@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_simple_grocery_app/features/cart_screen/ui/cart_screen.dart';
 import 'package:flutter_bloc_simple_grocery_app/features/home/bloc/home_bloc.dart';
+import 'package:flutter_bloc_simple_grocery_app/features/wishlist_screen/wishlist_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,9 +17,29 @@ class HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
       bloc: homeBloc,
+      listenWhen: (previous, current) => current is HomeActionState,
+      buildWhen: (previous, current) => current is! HomeActionState,
 
       listener: (context, state) {
-        // TODO: implement listener
+        if (state is NavigatingToCartScreenActionState) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return CartScreen();
+              },
+            ),
+          );
+        } else if (state is! NavigatingToCartScreenActionState) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return WishlistScreen();
+              },
+            ),
+          );
+        }
       },
       builder: (context, state) {
         return Scaffold(
