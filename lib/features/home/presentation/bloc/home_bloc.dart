@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_simple_grocery_app/features/home/models/product_model.dart';
+import 'package:flutter_bloc_simple_grocery_app/features/home/data/models/product_model.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

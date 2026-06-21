@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_simple_grocery_app/features/cart/presentation/screens/cart_screen.dart';
-import 'package:flutter_bloc_simple_grocery_app/features/home/bloc/home_bloc.dart';
+import 'package:flutter_bloc_simple_grocery_app/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter_bloc_simple_grocery_app/features/wishlist/presentation/screens/wishlist_screen.dart';
 
 class HomeScreen extends StatefulWidget {
