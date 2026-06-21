@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_simple_grocery_app/features/cart_screen/ui/cart_screen.dart';
+import 'package:flutter_bloc_simple_grocery_app/features/cart/presentation/screens/cart_screen.dart';
 import 'package:flutter_bloc_simple_grocery_app/features/home/bloc/home_bloc.dart';
-import 'package:flutter_bloc_simple_grocery_app/features/wishlist_screen/wishlist_screen.dart';
+import 'package:flutter_bloc_simple_grocery_app/features/wishlist/presentation/screens/wishlist_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -50,13 +50,13 @@ class HomeScreenState extends State<HomeScreen> {
             actions: [
               IconButton(
                 onPressed: () {
-                  homeBloc.add(NavigatingToWishlistScreen());
+                  homeBloc.add(NavigateToWishlistScreenEvent());
                 },
                 icon: Icon(Icons.favorite_outline),
               ),
               IconButton(
                 onPressed: () {
-                  homeBloc.add(NavigatingToCartScreen());
+                  homeBloc.add(NavigateToCartScreenEvent());
                 },
                 icon: Icon(Icons.shopping_cart),
               ),

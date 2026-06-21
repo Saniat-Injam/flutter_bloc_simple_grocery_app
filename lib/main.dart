@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_simple_grocery_app/features/home/ui/home_screen.dart';
+import 'package:flutter_bloc_simple_grocery_app/features/home/presentation/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
