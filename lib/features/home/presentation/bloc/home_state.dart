@@ -5,7 +5,9 @@ sealed class HomeState {}
 
 sealed class HomeActionState extends HomeState {}
 
-final class HomeInitial extends HomeState {}
+
+// Build State -- that build the ui
+final class HomeInitialstate extends HomeState {}
 
 final class LoadingState extends HomeState {}
 
@@ -16,6 +18,8 @@ final class LoadedSuccessState extends HomeState {
 
 final class ErrorState extends HomeState {}
 
+
+// Actionable State
 final class NavigatingToWishlistScreenActionState extends HomeActionState {}
 
 final class NavigatingToCartScreenActionState extends HomeActionState {}
