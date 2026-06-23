@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_simple_grocery_app/features/cart/presentation/screens/cart_screen.dart';
 import 'package:flutter_bloc_simple_grocery_app/features/home/presentation/bloc/home_bloc.dart';
+import 'package:flutter_bloc_simple_grocery_app/features/home/presentation/widgets/product_tile.dart';
 import 'package:flutter_bloc_simple_grocery_app/features/wishlist/presentation/screens/wishlist_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,6 +14,13 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   final HomeBloc homeBloc = HomeBloc();
+
+  @override
+  void initState() {
+    homeBloc.add(HomeScreenInitialEvent());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
@@ -24,45 +32,58 @@ class HomeScreenState extends State<HomeScreen> {
         if (state is NavigatingToCartScreenActionState) {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) {
-                return CartScreen();
-              },
-            ),
+            MaterialPageRoute(builder: (context) => CartScreen()),
           );
         } else if (state is! NavigatingToCartScreenActionState) {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) {
-                return WishlistScreen();
-              },
-            ),
+            MaterialPageRoute(builder: (context) => WishlistScreen()),
           );
         }
       },
+
       builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.teal,
-            title: Text('Simple grocery app'),
-            centerTitle: true,
-            actions: [
-              IconButton(
-                onPressed: () {
-                  homeBloc.add(NavigateToWishlistScreenEvent());
-                },
-                icon: Icon(Icons.favorite_outline),
+        switch (state.runtimeType) {
+          case const (LoadingState):
+            return Scaffold(body: Center(child: CircularProgressIndicator()));
+
+          case const (LoadedSuccessState):
+            final successState = state as LoadedSuccessState;
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.teal,
+                title: Text('Simple grocery app'),
+                centerTitle: true,
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      homeBloc.add(NavigateToWishlistScreenEvent());
+                    },
+                    icon: Icon(Icons.favorite_outline),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      homeBloc.add(NavigateToCartScreenEvent());
+                    },
+                    icon: Icon(Icons.shopping_cart),
+                  ),
+                ],
               ),
-              IconButton(
-                onPressed: () {
-                  homeBloc.add(NavigateToCartScreenEvent());
+              body: ListView.builder(
+                itemCount: successState.products!.length,
+                itemBuilder: (context, index) {
+                  return ProductTile(
+                    productModel: successState.products![index],
+                  );
                 },
-                icon: Icon(Icons.shopping_cart),
               ),
-            ],
-          ),
-        );
+            );
+
+          case const (ErrorState):
+            return Scaffold(body: Center(child: Text('Error')));
+          default:
+            return SizedBox();
+        }
       },
     );
   }
