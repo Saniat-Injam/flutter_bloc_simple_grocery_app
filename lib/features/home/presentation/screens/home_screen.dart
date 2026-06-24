@@ -39,6 +39,14 @@ class HomeScreenState extends State<HomeScreen> {
             context,
             MaterialPageRoute(builder: (context) => WishlistScreen()),
           );
+        } else if (state is ItemAddedToWishlistActionState) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('Item added the wishlist')));
+        } else if (state is ItemAddedToCartActionState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Item successfully added to the cart')),
+          );
         }
       },
 

@@ -3,9 +3,9 @@ import 'package:flutter_bloc_simple_grocery_app/features/home/data/models/produc
 import 'package:flutter_bloc_simple_grocery_app/features/home/presentation/bloc/home_bloc.dart';
 
 class ProductTile extends StatelessWidget {
-  final ProductModel? productModel;
+  final ProductModel productModel;
   final HomeBloc homeBloc = HomeBloc();
-  ProductTile({super.key, this.productModel});
+  ProductTile({super.key, required this.productModel});
 
   @override
   Widget build(BuildContext context) {
@@ -25,26 +25,26 @@ class ProductTile extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(productModel!.imageUrl!),
+                image: NetworkImage(productModel.imageUrl!),
               ),
             ),
           ),
           SizedBox(height: 10),
           Text(
-            productModel!.name ?? '',
+            productModel.name ?? '',
             style: TextStyle(
               color: Colors.black54,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
-          Text(productModel!.description ?? ""),
+          Text(productModel.description ?? ""),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                productModel!.price?.toString() ?? "",
+                productModel.price?.toString() ?? "",
                 style: TextStyle(
                   color: Colors.black54,
                   fontSize: 18,
@@ -55,13 +55,19 @@ class ProductTile extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      homeBloc.add(WishlistButtonClickedEvent());
+                      homeBloc.add(
+                        WishlistButtonClickedEvent(
+                          clickedProduct: productModel,
+                        ),
+                      );
                     },
                     icon: Icon(Icons.favorite_outline),
                   ),
                   IconButton(
                     onPressed: () {
-                      homeBloc.add(CartButtonClickedEvent());
+                      homeBloc.add(
+                        CartButtonClickedEvent(clickedProduct: productModel),
+                      );
                     },
                     icon: Icon(Icons.shopping_cart),
                   ),
