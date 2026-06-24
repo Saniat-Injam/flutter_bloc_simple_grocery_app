@@ -34,7 +34,7 @@ class HomeScreenState extends State<HomeScreen> {
             context,
             MaterialPageRoute(builder: (context) => CartScreen()),
           );
-        } else if (state is! NavigatingToCartScreenActionState) {
+        } else if (state is NavigatingToWishlistScreenActionState) {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => WishlistScreen()),
@@ -82,6 +82,7 @@ class HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return ProductTile(
                     productModel: successState.products![index],
+                    homeBloc: homeBloc,
                   );
                 },
               ),

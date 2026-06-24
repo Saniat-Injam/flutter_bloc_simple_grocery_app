@@ -4,8 +4,12 @@ import 'package:flutter_bloc_simple_grocery_app/features/home/presentation/bloc/
 
 class ProductTile extends StatelessWidget {
   final ProductModel productModel;
-  final HomeBloc homeBloc = HomeBloc();
-  ProductTile({super.key, required this.productModel});
+  final HomeBloc homeBloc;
+  const ProductTile({
+    super.key,
+    required this.productModel,
+    required this.homeBloc,
+  });
 
   @override
   Widget build(BuildContext context) {
