@@ -8,10 +8,12 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc() : super(HomeScreenInitialEvent()) {
+  HomeBloc() : super(HomeInitialstate()) {
     on<HomeScreenInitialEvent>(homeScreenInitialEvent);
     on<NavigateToWishlistScreenEvent>(navigateToWishlistScreenEvent);
     on<NavigateToCartScreenEvent>(navigateToCartScreenEvent);
+    on<WishlistButtonClickedEvent>(wishlistButtonClickedEvent);
+    on<CartButtonClickedEvent>(cartButtonClickedEvent);
   }
 
   FutureOr<void> homeScreenInitialEvent(
@@ -47,5 +49,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) {
     emit(NavigatingToCartScreenActionState());
+  }
+
+  FutureOr<void> wishlistButtonClickedEvent(
+    WishlistButtonClickedEvent event,
+    Emitter<HomeState> emit,
+  ) {
+    print('Wishlist button clicked');
+  }
+
+  FutureOr<void> cartButtonClickedEvent(
+    CartButtonClickedEvent event,
+    Emitter<HomeState> emit,
+  ) {
+    print('Cart button clicked event');
   }
 }
