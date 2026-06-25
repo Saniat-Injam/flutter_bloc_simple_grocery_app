@@ -23,3 +23,6 @@ final class ErrorState extends HomeState {}
 final class NavigatingToWishlistScreenActionState extends HomeActionState {}
 
 final class NavigatingToCartScreenActionState extends HomeActionState {}
+
+final class ItemAddedToWishlistActionState extends HomeActionState {}
+final class ItemAddedToCartActionState extends HomeActionState {}

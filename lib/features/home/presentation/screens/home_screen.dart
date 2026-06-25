@@ -34,10 +34,18 @@ class HomeScreenState extends State<HomeScreen> {
             context,
             MaterialPageRoute(builder: (context) => CartScreen()),
           );
-        } else if (state is! NavigatingToCartScreenActionState) {
+        } else if (state is NavigatingToWishlistScreenActionState) {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => WishlistScreen()),
+          );
+        } else if (state is ItemAddedToWishlistActionState) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('Item added the wishlist')));
+        } else if (state is ItemAddedToCartActionState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Item successfully added to the cart')),
           );
         }
       },
@@ -74,6 +82,7 @@ class HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return ProductTile(
                     productModel: successState.products![index],
+                    homeBloc: homeBloc,
                   );
                 },
               ),
